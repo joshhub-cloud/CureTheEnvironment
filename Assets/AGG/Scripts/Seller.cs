@@ -6,35 +6,28 @@ using StarterAssets;
 
 public class Seller : MonoBehaviour
 {
-    public CinemachineVirtualCamera VCamDisable;
-    public CinemachineVirtualCamera VCamEnable;
     public GameObject Shop_UI;
-    private ThirdPersonController TPC;
+    private PlayerMover PlayerMover;
     private bool _canBuy = true;
     private float time = 1f;
-    private StarterAssetsInputs SAI;
-    public bool cursorActive = false;
+    // private StarterAssetsInputs SAI;
+    // public bool cursorActive = false;
     void Awake()
     {
-      SAI = FindAnyObjectByType<StarterAssetsInputs>();  
+     // SAI = FindAnyObjectByType<StarterAssetsInputs>();  
     }
 
     private void OnTriggerEnter(Collider other)
     {
                 
         //Cursor.visible = true;
-        cursorActive = true;
-        SAI.cursorLocked=false;
+       // cursorActive = true;
+        // SAI.cursorLocked=false;
 
         if(_canBuy)
         {
-            
-            VCamDisable.gameObject.SetActive(false);
-            VCamEnable.gameObject.SetActive(true);
-            Camera.main.GetComponent<CinemachineBrain>().enabled = true;
-            Camera.main.cullingMask &= ~(1  << 8);
-            TPC = other.GetComponent<ThirdPersonController>();
-            TPC.canMove = false;
+            PlayerMover = other.GetComponent<PlayerMover>();
+            PlayerMover.canMove = false;
             Shop_UI.SetActive(true);
             _canBuy = false;
         }
@@ -48,13 +41,9 @@ public class Seller : MonoBehaviour
 
     public void ExitStore ()
     {
-        TPC.canMove = true;
-        VCamDisable.gameObject.SetActive(true);
-        VCamEnable.gameObject.SetActive(false);
-        Camera.main.GetComponent<CinemachineBrain>().enabled = false;
-        Camera.main.cullingMask |= ~(1 << 8);
+        PlayerMover.canMove = true;
         Shop_UI.SetActive(false);
-        SAI.cursorLocked = true;
+      //  SAI.cursorLocked = true;
 
     }    
 

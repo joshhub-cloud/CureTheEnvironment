@@ -70,9 +70,6 @@ namespace StarterAssets
 		private void OnApplicationFocus(bool hasFocus)
 		{
 
-				Debug.Log("he sido yo");
-				SetCursorState(!seller.cursorActive);
-
 		}
 
 		private void SetCursorState(bool newState)
